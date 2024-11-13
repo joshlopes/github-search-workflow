@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>bundleid</key>
+    <string>com.joshlopes.github-search-workflow</string>
+    <key>category</key>
+    <string>Internet</string>
+    <key>connections</key>
+    <dict>
+        <key>search-repos</key>
+        <array>
+            <dict>
+                <key>destinationuid</key>
+                <string>browser-action</string>
+                <key>modifiers</key>
+                <integer>0</integer>
+                <key>modifiersubtext</key>
+                <string></string>
+                <key>vitoclose</key>
+                <false/>
+            </dict>
+        </array>
+        <key>user-repos</key>
+        <array>
+            <dict>
+                <key>destinationuid</key>
+                <string>browser-action</string>
+                <key>modifiers</key>
+                <integer>0</integer>
+                <key>modifiersubtext</key>
+                <string></string>
+                <key>vitoclose</key>
+                <false/>
+            </dict>
+        </array>
+        <key>user-pulls</key>
+        <array>
+            <dict>
+                <key>destinationuid</key>
+                <string>browser-action</string>
+                <key>modifiers</key>
+                <integer>0</integer>
+                <key>modifiersubtext</key>
+                <string></string>
+                <key>vitoclose</key>
+                <false/>
+            </dict>
+        </array>
+        <key>token-input</key>
+        <array>
+            <dict>
+                <key>destinationuid</key>
+                <string>token-save</string>
+                <key>modifiers</key>
+                <integer>0</integer>
+                <key>modifiersubtext</key>
+                <string></string>
+                <key>vitoclose</key>
+                <false/>
+            </dict>
+        </array>
+        <key>clear-cache</key>
+        <array>
+            <dict>
+                <key>destinationuid</key>
+                <string>clear-cache-action</string>
+                <key>modifiers</key>
+                <integer>0</integer>
+                <key>modifiersubtext</key>
+                <string></string>
+                <key>vitoclose</key>
+                <false/>
+            </dict>
+        </array>
+    </dict>
+    <key>createdby</key>
+    <string>Luis, JoshLopes, Lopes</string>
+    <key>description</key>
+    <string>Search and open GitHub repositories</string>
+    <key>disabled</key>
+    <false/>
+    <key>name</key>
+    <string>GitHub Search by Luis, JoshLopes, Lopes</string>
+    <key>objects</key>
+    <array>
+        <dict>
+            <key>config</key>
+            <dict>
+                <key>browser</key>
+                <string></string>
+                <key>spaces</key>
+                <string></string>
+                <key>url</key>
+                <string>{query}</string>
+                <key>utf8</key>
+                <true/>
+            </dict>
+            <key>type</key>
+            <string>alfred.workflow.action.openurl</string>
+            <key>uid</key>
+            <string>browser-action</string>
+            <key>version</key>
+            <integer>1</integer>
+        </dict>
+        <dict>
+            <key>config</key>
+            <dict>
+                <key>alfredfiltersresults</key>
+                <false/>
+                <key>alfredfiltersresultsmatchmode</key>
+                <integer>0</integer>
+                <key>argumenttreatemptyqueryasnil</key>
+                <true/>
+                <key>argumenttype</key>
+                <integer>0</integer>
+                <key>escaping</key>
+                <integer>102</integer>
+                <key>keyword</key>
+                <string>gh</string>
+                <key>queuedelaycustom</key>
+                <integer>1</integer>
+                <key>queuedelayimmediatelyinitially</key>
+                <false/>
+                <key>queuedelaymode</key>
+                <integer>1</integer>
+                <key>queuemode</key>
+                <integer>2</integer>
+                <key>runningsubtext</key>
+                <string>Keep typing to search GitHub repositories...</string>
+                <key>script</key>
+                <string>if [[ ${#1} -lt 3 ]]; then
+  echo '{"items":[{"title":"Keep typing...","subtitle":"Enter at least 3 characters to search","arg":"","text":{"copy":"","largetype":""}}]}'
+else
+  node dist/cli.js search "$1"
+fi</string>
+                <key>scriptargtype</key>
+                <integer>1</integer>
+                <key>subtext</key>
+                <string>Search for GitHub repositories (e.g., vite, react)</string>
+                <key>title</key>
+                <string>Search GitHub Repositories</string>
+                <key>type</key>
+                <integer>0</integer>
+                <key>withspace</key>
+                <true/>
+            </dict>
+            <key>type</key>
+            <string>alfred.workflow.input.scriptfilter</string>
+            <key>uid</key>
+            <string>search-repos</string>
+            <key>version</key>
+            <integer>3</integer>
+        </dict>
+        <dict>
+            <key>config</key>
+            <dict>
+                <key>alfredfiltersresults</key>
+                <false/>
+                <key>alfredfiltersresultsmatchmode</key>
+                <integer>0</integer>
+                <key>argumenttreatemptyqueryasnil</key>
+                <true/>
+                <key>argumenttype</key>
+                <integer>0</integer>
+                <key>escaping</key>
+                <integer>102</integer>
+                <key>keyword</key>
+                <string>repo</string>
+                <key>queuedelaycustom</key>
+                <integer>1</integer>
+                <key>queuedelayimmediatelyinitially</key>
+                <false/>
+                <key>queuedelaymode</key>
+                <integer>1</integer>
+                <key>queuemode</key>
+                <integer>2</integer>
+                <key>runningsubtext</key>
+                <string>Keep typing to search your repositories...</string>
+                <key>script</key>
+                <string>if [[ ${#1} -lt 2 ]]; then
+  echo '{"items":[{"title":"Keep typing...","subtitle":"Enter at least 2 characters to search","arg":"","text":{"copy":"","largetype":""}}]}'
+else
+  node dist/cli.js user-repos "$1"
+fi</string>
+                <key>scriptargtype</key>
+                <integer>1</integer>
+                <key>subtext</key>
+                <string>Search your GitHub repositories</string>
+                <key>title</key>
+                <string>Search Your Repositories</string>
+                <key>type</key>
+                <integer>0</integer>
+                <key>withspace</key>
+                <true/>
+            </dict>
+            <key>type</key>
+            <string>alfred.workflow.input.scriptfilter</string>
+            <key>uid</key>
+            <string>user-repos</string>
+            <key>version</key>
+            <integer>3</integer>
+        </dict>
+        <dict>
+            <key>config</key>
+            <dict>
+                <key>alfredfiltersresults</key>
+                <false/>
+                <key>alfredfiltersresultsmatchmode</key>
+                <integer>0</integer>
+                <key>argumenttreatemptyqueryasnil</key>
+                <true/>
+                <key>argumenttype</key>
+                <integer>0</integer>
+                <key>escaping</key>
+                <integer>102</integer>
+                <key>keyword</key>
+                <string>pr</string>
+                <key>queuedelaycustom</key>
+                <integer>1</integer>
+                <key>queuedelayimmediatelyinitially</key>
+                <false/>
+                <key>queuedelaymode</key>
+                <integer>1</integer>
+                <key>queuemode</key>
+                <integer>2</integer>
+                <key>runningsubtext</key>
+                <string>Keep typing to search pull requests...</string>
+                <key>script</key>
+                <string>if [[ ${#1} -lt 2 ]]; then
+  echo '{"items":[{"title":"Keep typing...","subtitle":"Enter at least 2 characters to search","arg":"","text":{"copy":"","largetype":""}}]}'
+else
+  node dist/cli.js user-pulls "$1"
+fi</string>
+                <key>scriptargtype</key>
+                <integer>1</integer>
+                <key>subtext</key>
+                <string>Search your open pull requests</string>
+                <key>title</key>
+                <string>Search Pull Requests</string>
+                <key>type</key>
+                <integer>0</integer>
+                <key>withspace</key>
+                <true/>
+            </dict>
+            <key>type</key>
+            <string>alfred.workflow.input.scriptfilter</string>
+            <key>uid</key>
+            <string>user-pulls</string>
+            <key>version</key>
+            <integer>3</integer>
+        </dict>
+        <dict>
+            <key>config</key>
+            <dict>
+                <key>argumenttype</key>
+                <integer>0</integer>
+                <key>keyword</key>
+                <string>gh-login</string>
+                <key>subtext</key>
+                <string>Paste your GitHub personal access token</string>
+                <key>text</key>
+                <string>Set GitHub Token</string>
+                <key>withspace</key>
+                <true/>
+            </dict>
+            <key>type</key>
+            <string>alfred.workflow.input.keyword</string>
+            <key>uid</key>
+            <string>token-input</string>
+            <key>version</key>
+            <integer>1</integer>
+        </dict>
+        <dict>
+            <key>config</key>
+            <dict>
+                <key>concurrently</key>
+                <false/>
+                <key>escaping</key>
+                <integer>102</integer>
+                <key>script</key>
+                <string>node dist/cli.js token "$1"</string>
+                <key>type</key>
+                <integer>0</integer>
+            </dict>
+            <key>type</key>
+            <string>alfred.workflow.action.script</string>
+            <key>uid</key>
+            <string>token-save</string>
+            <key>version</key>
+            <integer>2</integer>
+        </dict>
+        <dict>
+            <key>config</key>
+            <dict>
+                <key>argumenttype</key>
+                <integer>2</integer>
+                <key>keyword</key>
+                <string>gh-clear</string>
+                <key>subtext</key>
+                <string>Clear cached icons and API responses</string>
+                <key>text</key>
+                <string>Clear GitHub Cache</string>
+                <key>withspace</key>
+                <false/>
+            </dict>
+            <key>type</key>
+            <string>alfred.workflow.input.keyword</string>
+            <key>uid</key>
+            <string>clear-cache</string>
+            <key>version</key>
+            <integer>1</integer>
+        </dict>
+        <dict>
+            <key>config</key>
+            <dict>
+                <key>concurrently</key>
+                <false/>
+                <key>escaping</key>
+                <integer>102</integer>
+                <key>script</key>
+                <string>node dist/cli.js clear-cache</string>
+                <key>type</key>
+                <integer>0</integer>
+            </dict>
+            <key>type</key>
+            <string>alfred.workflow.action.script</string>
+            <key>uid</key>
+            <string>clear-cache-action</string>
+            <key>version</key>
+            <integer>2</integer>
+        </dict>
+    </array>
+    <key>readme</key>
+    <string>GitHub Search Workflow for Alfred
+
+Search and open GitHub repositories directly from Alfred.
+
+Commands:
+- gh &lt;query&gt;: Search all GitHub repositories
+- repo &lt;query&gt;: Search your repositories
+- pr &lt;query&gt;: Search your pull requests
+- gh-login &lt;token&gt;: Set your GitHub token
+- gh-clear: Clear local cache</string>
+    <key>uidata</key>
+    <dict>
+        <key>browser-action</key>
+        <dict>
+            <key>xpos</key>
+            <integer>300</integer>
+            <key>ypos</key>
+            <integer>50</integer>
+        </dict>
+        <key>search-repos</key>
+        <dict>
+            <key>xpos</key>
+            <integer>50</integer>
+            <key>ypos</key>
+            <integer>50</integer>
+        </dict>
+        <key>user-repos</key>
+        <dict>
+            <key>xpos</key>
+            <integer>50</integer>
+            <key>ypos</key>
+            <integer>170</integer>
+        </dict>
+        <key>user-pulls</key>
+        <dict>
+            <key>xpos</key>
+            <integer>50</integer>
+            <key>ypos</key>
+            <integer>290</integer>
+        </dict>
+        <key>token-input</key>
+        <dict>
+            <key>xpos</key>
+            <integer>50</integer>
+            <key>ypos</key>
+            <integer>410</integer>
+        </dict>
+        <key>token-save</key>
+        <dict>
+            <key>xpos</key>
+            <integer>300</integer>
+            <key>ypos</key>
+            <integer>410</integer>
+        </dict>
+        <key>clear-cache</key>
+        <dict>
+            <key>xpos</key>
+            <integer>50</integer>
+            <key>ypos</key>
+            <integer>530</integer>
+        </dict>
+        <key>clear-cache-action</key>
+        <dict>
+            <key>xpos</key>
+            <integer>300</integer>
+            <key>ypos</key>
+            <integer>530</integer>
+        </dict>
+    </dict>
+    <key>variables</key>
+    <dict>
+        <key>GITHUB_API_HOST</key>
+        <string>api.github.com</string>
+        <key>GITHUB_HOST</key>
+        <string>github.com</string>
+        <key>GITHUB_ME_ACCOUNT</key>
+        <string>@me</string>
+        <key>PR_ALL_INVOLVE_ME</key>
+        <string>false</string>
+    </dict>
+    <key>version</key>
+    <string>1.0.0</string>
+    <key>webaddress</key>
+    <string>https://github.com/joshlopes/github-search-workflow</string>
+</dict>
+</plist>
